@@ -21,8 +21,8 @@ pipeline {
         stage('Bootstrap Backend') {
             steps {
                 dir('bootstrap') {
-                    sh 'terraform init'
-                    sh 'terraform apply -auto-approve'
+                    bat 'terraform init'
+                    bat 'terraform apply -auto-approve'
                 }
             }
         }
@@ -30,7 +30,7 @@ pipeline {
         stage('Terraform Init') {
             steps {
                 dir('main') {
-                    sh 'terraform init'
+                    bat 'terraform init'
                 }
             }
         }
@@ -38,7 +38,7 @@ pipeline {
         stage('Terraform Plan') {
             steps {
                 dir('main') {
-                    sh 'terraform plan'
+                    bat 'terraform plan'
                 }
             }
         }
@@ -46,7 +46,7 @@ pipeline {
         stage('Terraform Apply') {
             steps {
                 dir('main') {
-                    sh 'terraform apply -auto-approve'
+                    bat 'terraform apply -auto-approve'
                 }
             }
         }
