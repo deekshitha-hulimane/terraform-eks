@@ -21,7 +21,7 @@ pipeline {
         stage('Bootstrap Backend') {
             steps {
                 withCredentials([usernamePassword(
-                    credentialsId: 'aws-creds',
+                    credentialsId: 'd594bc1b-ba1a-4b65-aa91-b22dbc631b10',
                     usernameVariable: 'AKIAR4VPK5CAMHMQBYHZ',
                     passwordVariable: 'sf9OOQxXNpQLYXJr2ZmzM+PNk0HlsRoO7xseXBOn'
                 )]) {
@@ -36,7 +36,7 @@ pipeline {
         stage('Terraform Init') {
             steps {
                 withCredentials([usernamePassword(
-                    credentialsId: 'aws-creds',
+                    credentialsId: 'd594bc1b-ba1a-4b65-aa91-b22dbc631b10',
                     usernameVariable: 'AKIAR4VPK5CAMHMQBYHZ',
                     passwordVariable: 'sf9OOQxXNpQLYXJr2ZmzM+PNk0HlsRoO7xseXBOn'
                 )]) {
@@ -50,7 +50,7 @@ pipeline {
         stage('Terraform Plan') {
             steps {
                 withCredentials([usernamePassword(
-                    credentialsId: 'aws-creds',
+                    credentialsId: 'd594bc1b-ba1a-4b65-aa91-b22dbc631b10',
                     usernameVariable: 'AKIAR4VPK5CAMHMQBYHZ',
                     passwordVariable: 'sf9OOQxXNpQLYXJr2ZmzM+PNk0HlsRoO7xseXBOn'
                 )]) {
@@ -64,7 +64,7 @@ pipeline {
         stage('Terraform Apply') {
             steps {
                 withCredentials([usernamePassword(
-                    credentialsId: 'aws-creds',
+                    credentialsId: 'd594bc1b-ba1a-4b65-aa91-b22dbc631b10',
                     usernameVariable: 'AKIAR4VPK5CAMHMQBYHZ',
                     passwordVariable: 'sf9OOQxXNpQLYXJr2ZmzM+PNk0HlsRoO7xseXBOn'
                 )]) {
