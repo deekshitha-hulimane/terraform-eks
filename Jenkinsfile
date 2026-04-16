@@ -22,12 +22,16 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(
                     credentialsId: 'd594bc1b-ba1a-4b65-aa91-b22dbc631b10',
-                    usernameVariable: 'AKIAR4VPK5CAMHMQBYHZ',
-                    passwordVariable: 'sf9OOQxXNpQLYXJr2ZmzM+PNk0HlsRoO7xseXBOn'
+                    usernameVariable: 'ACCESS_KEY',
+                    passwordVariable: 'SECRET_KEY'
                 )]) {
                     dir('bootstrap') {
-                        bat 'terraform init'
-                        bat 'terraform apply -auto-approve'
+                        bat '''
+                        set AWS_ACCESS_KEY_ID=%ACCESS_KEY%
+                        set AWS_SECRET_ACCESS_KEY=%SECRET_KEY%
+                        terraform init
+                        terraform apply -auto-approve
+                        '''
                     }
                 }
             }
@@ -37,11 +41,15 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(
                     credentialsId: 'd594bc1b-ba1a-4b65-aa91-b22dbc631b10',
-                    usernameVariable: 'AKIAR4VPK5CAMHMQBYHZ',
-                    passwordVariable: 'sf9OOQxXNpQLYXJr2ZmzM+PNk0HlsRoO7xseXBOn'
+                    usernameVariable: 'ACCESS_KEY',
+                    passwordVariable: 'SECRET_KEY'
                 )]) {
                     dir('main') {
-                        bat 'terraform init'
+                        bat '''
+                        set AWS_ACCESS_KEY_ID=%ACCESS_KEY%
+                        set AWS_SECRET_ACCESS_KEY=%SECRET_KEY%
+                        terraform init
+                        '''
                     }
                 }
             }
@@ -51,11 +59,15 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(
                     credentialsId: 'd594bc1b-ba1a-4b65-aa91-b22dbc631b10',
-                    usernameVariable: 'AKIAR4VPK5CAMHMQBYHZ',
-                    passwordVariable: 'sf9OOQxXNpQLYXJr2ZmzM+PNk0HlsRoO7xseXBOn'
+                    usernameVariable: 'ACCESS_KEY',
+                    passwordVariable: 'SECRET_KEY'
                 )]) {
                     dir('main') {
-                        bat 'terraform plan'
+                        bat '''
+                        set AWS_ACCESS_KEY_ID=%ACCESS_KEY%
+                        set AWS_SECRET_ACCESS_KEY=%SECRET_KEY%
+                        terraform plan
+                        '''
                     }
                 }
             }
@@ -65,11 +77,15 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(
                     credentialsId: 'd594bc1b-ba1a-4b65-aa91-b22dbc631b10',
-                    usernameVariable: 'AKIAR4VPK5CAMHMQBYHZ',
-                    passwordVariable: 'sf9OOQxXNpQLYXJr2ZmzM+PNk0HlsRoO7xseXBOn'
+                    usernameVariable: 'ACCESS_KEY',
+                    passwordVariable: 'SECRET_KEY'
                 )]) {
                     dir('main') {
-                        bat 'terraform apply -auto-approve'
+                        bat '''
+                        set AWS_ACCESS_KEY_ID=%ACCESS_KEY%
+                        set AWS_SECRET_ACCESS_KEY=%SECRET_KEY%
+                        terraform apply -auto-approve
+                        '''
                     }
                 }
             }
