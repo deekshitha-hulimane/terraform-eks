@@ -20,33 +20,57 @@ pipeline {
 
         stage('Bootstrap Backend') {
             steps {
-                dir('bootstrap') {
-                    bat 'terraform init'
-                    bat 'terraform apply -auto-approve'
+                withCredentials([usernamePassword(
+                    credentialsId: 'aws-creds',
+                    usernameVariable: 'AKIAR4VPK5CAMHMQBYHZ',
+                    passwordVariable: 'sf9OOQxXNpQLYXJr2ZmzM+PNk0HlsRoO7xseXBOn'
+                )]) {
+                    dir('bootstrap') {
+                        bat 'terraform init'
+                        bat 'terraform apply -auto-approve'
+                    }
                 }
             }
         }
 
         stage('Terraform Init') {
             steps {
-                dir('main') {
-                    bat 'terraform init'
+                withCredentials([usernamePassword(
+                    credentialsId: 'aws-creds',
+                    usernameVariable: 'AKIAR4VPK5CAMHMQBYHZ',
+                    passwordVariable: 'sf9OOQxXNpQLYXJr2ZmzM+PNk0HlsRoO7xseXBOn'
+                )]) {
+                    dir('main') {
+                        bat 'terraform init'
+                    }
                 }
             }
         }
 
         stage('Terraform Plan') {
             steps {
-                dir('main') {
-                    bat 'terraform plan'
+                withCredentials([usernamePassword(
+                    credentialsId: 'aws-creds',
+                    usernameVariable: 'AKIAR4VPK5CAMHMQBYHZ',
+                    passwordVariable: 'sf9OOQxXNpQLYXJr2ZmzM+PNk0HlsRoO7xseXBOn'
+                )]) {
+                    dir('main') {
+                        bat 'terraform plan'
+                    }
                 }
             }
         }
 
         stage('Terraform Apply') {
             steps {
-                dir('main') {
-                    bat 'terraform apply -auto-approve'
+                withCredentials([usernamePassword(
+                    credentialsId: 'aws-creds',
+                    usernameVariable: 'AKIAR4VPK5CAMHMQBYHZ',
+                    passwordVariable: 'sf9OOQxXNpQLYXJr2ZmzM+PNk0HlsRoO7xseXBOn'
+                )]) {
+                    dir('main') {
+                        bat 'terraform apply -auto-approve'
+                    }
                 }
             }
         }
