@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "tf_state" {
-  bucket = "my-tf-state-bucket-unique-12345"
+  bucket = "my-tf-state-bucket-unique-67890"
 
   tags = {
     Name = "Terraform State Bucket"
