@@ -1,5 +1,14 @@
+# 1. Add the OIDC Provider (The Handshake)
+data "aws_partition" "current" {}
+
+resource "aws_iam_openid_connect_provider" "oidc" {
+  client_id_list  = ["sts.amazonaws.com"]
+  thumbprint_list = ["9e99a48a9960b14926bb7f3b02e22da2b0ab7280"]
+  url             = aws_eks_cluster.eks.identity[0].oidc[0].issuer
+}
+
+# 2. Update the Cluster Resource to include the Security Group
 resource "aws_eks_cluster" "eks" {
-  # FIX: Adding the same suffix here so the name is always unique
   name     = "my-eks-cluster-${random_string.suffix.result}"
   role_arn = aws_iam_role.eks_cluster_role.arn
 
@@ -18,10 +27,13 @@ resource "aws_eks_cluster" "eks" {
   ]
 }
 
-output "endpoint" {
-  value = aws_eks_cluster.eks.endpoint
+# 3. Add the required EKS Add-ons (The "Connectors")
+resource "aws_eks_addon" "vpc_cni" {
+  cluster_name = aws_eks_cluster.eks.name
+  addon_name   = "vpc-cni"
 }
 
-output "kubeconfig-certificate-authority-data" {
-  value = aws_eks_cluster.eks.certificate_authority[0].data
+resource "aws_eks_addon" "kube_proxy" {
+  cluster_name = aws_eks_cluster.eks.name
+  addon_name   = "kube-proxy"
 }
