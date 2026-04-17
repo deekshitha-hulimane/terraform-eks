@@ -2,14 +2,10 @@ resource "aws_eks_cluster" "eks" {
   name     = "my-eks-cluster"
   role_arn = aws_iam_role.eks_role.arn
 
-  vpc_config {
-    subnet_ids = [
-      aws_subnet.public_1.id,
-      aws_subnet.public_2.id,
-      aws_subnet.private_1.id,
-      aws_subnet.private_2.id
-    ]
-  }
+  subnet_ids = [
+  aws_subnet.public_1.id,
+  aws_subnet.public_2.id
+]
 }
 resource "time_sleep" "wait_for_iam" {
   depends_on = [
