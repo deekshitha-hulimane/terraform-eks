@@ -1,6 +1,13 @@
-# IAM Role for EKS Cluster
+# We are adding a random suffix so the name is ALWAYS unique
+resource "random_string" "suffix" {
+  length  = 4
+  special = false
+  upper   = false
+}
+
 resource "aws_iam_role" "eks_cluster_role" {
-  name = "eks-cluster-role"
+  # FIX: Changing the name to include a random suffix
+  name = "eks-cluster-role-${random_string.suffix.result}"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -17,9 +24,9 @@ resource "aws_iam_role_policy_attachment" "eks_cluster_policy" {
   role       = aws_iam_role.eks_cluster_role.name
 }
 
-# IAM Role for EKS Worker Nodes
 resource "aws_iam_role" "node_role" {
-  name = "eks-node-role"
+  # FIX: Changing the name to include a random suffix
+  name = "eks-node-role-${random_string.suffix.result}"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
