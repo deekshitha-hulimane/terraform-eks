@@ -3,7 +3,7 @@ resource "aws_eks_node_group" "nodes" {
   node_group_name = "my-worker-nodes"
   node_role_arn   = aws_iam_role.node_role.arn
   
-  # FIX: Use the Public Subnet IDs so nodes can reach the EKS API
+  # MUST use Public Subnets for this fix to work without a NAT Gateway
   subnet_ids      = [aws_subnet.public_1.id, aws_subnet.public_2.id]
 
   scaling_config {
@@ -14,7 +14,11 @@ resource "aws_eks_node_group" "nodes" {
 
   instance_types = ["t3.micro"]
 
-  # These ensure the IAM roles are ready before the nodes start
+  # This section is critical: it ensures nodes get public IPs
+  remote_access {
+    ec2_ssh_key = null # We don't need a key, but this block triggers public IP assignment
+  }
+
   depends_on = [
     aws_iam_role_policy_attachment.node_AmazonEKSWorkerNodePolicy,
     aws_iam_role_policy_attachment.node_AmazonEKS_CNI_Policy,
