@@ -1,9 +1,9 @@
 resource "aws_eks_cluster" "eks" {
-  name     = "my-eks-cluster"
+  # FIX: Adding the same suffix here so the name is always unique
+  name     = "my-eks-cluster-${random_string.suffix.result}"
   role_arn = aws_iam_role.eks_cluster_role.arn
 
   vpc_config {
-    # Referencing subnets from vpc.tf dynamically
     subnet_ids = [
       aws_subnet.public_1.id,
       aws_subnet.public_2.id,
