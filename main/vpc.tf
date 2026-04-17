@@ -65,3 +65,13 @@ resource "aws_subnet" "private_2" {
     "kubernetes.io/role/internal-elb"      = "1"
   }
 }
+# This allows the Nodes to actually communicate with the Cluster Brain
+resource "aws_security_group_rule" "nodes_to_cluster" {
+  description              = "Allow nodes to communicate with the cluster API Server"
+  from_port                = 443
+  protocol                 = "tcp"
+  security_group_id        = aws_eks_cluster.eks.vpc_config[0].cluster_security_group_id
+  source_security_group_id = aws_eks_node_group.nodes.resources[0].remote_access_security_group_id
+  to_port                  = 443
+  type                     = "ingress"
+}
